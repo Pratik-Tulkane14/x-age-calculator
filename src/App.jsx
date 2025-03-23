@@ -94,7 +94,7 @@ function App() {
   return (
     <>
       <main className="content">
-        <form onSubmit={handleSubmit} className="input-dates-section">
+        <form onSubmit={handleSubmit} className="input-dates-section input">
           <div className="field">
             <label>DAY</label>
             <input
