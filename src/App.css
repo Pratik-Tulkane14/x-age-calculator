@@ -17,10 +17,11 @@ main {
 }
 .input-dates-section {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 20px;
 }
 .field {
   display: flex;
