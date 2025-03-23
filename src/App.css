@@ -10,8 +10,7 @@ main {
   align-items: center;
   background-color: #f0f0f0;
   margin: 20px auto 0 auto;
-  width: 300px;
-  max-width: 750px;
+  width: 750px;
   padding: 1rem;
   border-radius: 10px 10px 130px 10px;
   box-shadow: 3px 6px 11px rgba(0, 0, 0, 0.1);
@@ -41,7 +40,7 @@ main {
     font-size: 1.5rem;
   }
 }
-.divider-section{
+.divider-section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +52,7 @@ main {
   height: 5px;
   width: 100%;
 }
-.arrow{
+.arrow {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,9 +62,9 @@ main {
   width: 50px;
   padding: 5px;
 }
-.arrow-icon{
+.arrow-icon {
   color: white;
-font-size: 2rem;
+  font-size: 2rem;
 }
 .output-section {
   display: flex;
@@ -97,14 +96,18 @@ footer {
   color: #854cff;
   font-weight: bold;
 }
-#calculateBtn{
+#calculateBtn {
   background-color: transparent;
   border-color: transparent;
   cursor: pointer;
 }
-@media (min-width:500px) {
- .output-section{
+@media (min-width: 500px) {
+  .output-section {
     padding: 0 100px;
-
- } 
+  }
+}
+@media (max-width: 400px) {
+  main {
+    width: 300px;
+  }
 }
