@@ -9,30 +9,67 @@ function App() {
   const [outputDay, setOutputDay] = useState("--");
   const [outputMonth, setOutputMonth] = useState("--");
   const [outputYear, setOutputYear] = useState("--");
+  const [errors, setErrors] = useState({
+    day: "",
+    month: "",
+    year: "",
+  });
+
+  const validateInputs = () => {
+    const newErrors = { day: "", month: "", year: "" };
+    let isValid = true;
+
+    if (!day) {
+      newErrors.day = "This field is required";
+      isValid = false;
+    } else if (day < 1 || day > 31) {
+      newErrors.day = "Must be a valid day";
+      isValid = false;
+    }
+
+    if (!month) {
+      newErrors.month = "This field is required";
+      isValid = false;
+    } else if (month < 1 || month > 12) {
+      newErrors.month = "Must be a valid month";
+      isValid = false;
+    }
+
+    if (!year) {
+      newErrors.year = "This field is required";
+      isValid = false;
+    } else if (year > new Date().getFullYear()) {
+      newErrors.year = "Must be in past";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (day < 1 || day > 31) {
-      window.alert("Invalid date please enter valid date");
-    }
-    if (month < 1 || month > 12) {
-      window.alert("Must be a valid month");
-    }
-    if (year > new Date().getFullYear) {
-      window.alert("Must be in past");
-    }
-    const lastDayOfMonth = new Date(year, month, 0).getDate();
-    if (day > lastDayOfMonth) {
-      window.alert(
-        `Invalid date. ${month}/${year} has only ${lastDayOfMonth} days.`
-      );
+
+    if (!validateInputs()) {
       return;
     }
+
+    const lastDayOfMonth = new Date(year, month, 0).getDate();
+    if (day > lastDayOfMonth) {
+      setErrors((prev) => ({
+        ...prev,
+        day: "Must be a valid date",
+      }));
+      return;
+    }
+
     const dob = new Date(`${year}-${month}-${day}`);
-    console.log(dob, "yes");
     const today = new Date();
+
     let ageYears = today.getFullYear() - dob.getFullYear();
     let ageMonths = today.getMonth() - dob.getMonth();
     let ageDays = today.getDate() - dob.getDate();
+
     if (ageDays < 0) {
       ageMonths--;
       const lastMonthDate = new Date(today.getFullYear(), today.getMonth(), 0);
@@ -42,64 +79,68 @@ function App() {
       ageYears--;
       ageMonths += 12;
     }
-    if (ageMonths < 0) {
-      ageYears--;
-      ageMonths += 12;
-    }
+
     setOutputDay(ageDays);
     setOutputMonth(ageMonths);
     setOutputYear(ageYears);
   };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSubmit(e);
     }
   };
+
   return (
     <>
       <main className="content">
-        <form
-          onSubmit={(e) => handleSubmit(e)}
-          className="input-dates-section input"
-        >
+        <form onSubmit={handleSubmit} className="input-dates-section">
           <div className="field">
             <label>DAY</label>
             <input
+              id="dayIn"
               required
               type="text"
               placeholder="DD"
               value={day}
               onChange={(e) => setDay(e.target.value)}
               onKeyDown={handleKeyDown}
+              onBlur={validateInputs}
             />
+            {errors.day && <span className="error">{errors.day}</span>}
           </div>
           <div className="field">
             <label>MONTH</label>
             <input
+              id="monthIn"
               required
               type="text"
               placeholder="MM"
               value={month}
               onChange={(e) => setMonth(e.target.value)}
               onKeyDown={handleKeyDown}
+              onBlur={validateInputs}
             />
+            {errors.month && <span className="error">{errors.month}</span>}
           </div>
           <div className="field">
             <label>YEAR</label>
             <input
+              id="yearIn"
               required
               type="text"
               placeholder="YYYY"
               value={year}
               onChange={(e) => setYear(e.target.value)}
               onKeyDown={handleKeyDown}
+              onBlur={validateInputs}
             />
-            {/* <button type="submit">submit</button> */}
+            {errors.year && <span className="error">{errors.year}</span>}
           </div>
           <div className="divider-section">
             <div className="divider"></div>
             <div className="arrow">
-              <button type="submit" id="calculateBtn">
+              <button id="calculateBtn" type="submit">
                 <IoIosArrowRoundDown className="arrow-icon" />
               </button>
             </div>
@@ -107,13 +148,13 @@ function App() {
         </form>
         <div className="output-section">
           <p>
-            <span id="dayOut">{outputYear}</span>years
+            <span id="yearOut">{outputYear}</span> years
           </p>
           <p>
-            <span id="monthOut">{outputMonth}</span>months
+            <span id="monthOut">{outputMonth}</span> months
           </p>
           <p>
-            <span id="yearOut">{outputDay}</span>days
+            <span id="dayOut">{outputDay}</span> days
           </p>
         </div>
       </main>
