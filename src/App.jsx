@@ -15,18 +15,18 @@ function App() {
       window.alert("Invalid date please enter valid date");
     }
     if (month < 1 || month > 12) {
-      window.alert("Invalid  month please enter valid month");
+      window.alert("Must be a valid month");
     }
     if (year > new Date().getFullYear) {
-      window.alert("Date of year can't be in future please enter another date");
+      window.alert("Must be in past");
     }
-     const lastDayOfMonth = new Date(year, month, 0).getDate();
-     if (day > lastDayOfMonth) {
-       window.alert(
-         `Invalid date. ${month}/${year} has only ${lastDayOfMonth} days.`
-       );
-       return;
-     }
+    const lastDayOfMonth = new Date(year, month, 0).getDate();
+    if (day > lastDayOfMonth) {
+      window.alert(
+        `Invalid date. ${month}/${year} has only ${lastDayOfMonth} days.`
+      );
+      return;
+    }
     const dob = new Date(`${year}-${month}-${day}`);
     console.log(dob, "yes");
     const today = new Date();
@@ -42,9 +42,9 @@ function App() {
       ageYears--;
       ageMonths += 12;
     }
-    if(ageMonths<0){
+    if (ageMonths < 0) {
       ageYears--;
-      ageMonths+=12;
+      ageMonths += 12;
     }
     setOutputDay(ageDays);
     setOutputMonth(ageMonths);
@@ -57,8 +57,11 @@ function App() {
   };
   return (
     <>
-      <main>
-        <form onSubmit={(e) => handleSubmit(e)} className="input-dates-section">
+      <main className="content">
+        <form
+          onSubmit={(e) => handleSubmit(e)}
+          className="input-dates-section input"
+        >
           <div className="field">
             <label>DAY</label>
             <input
@@ -93,22 +96,24 @@ function App() {
             />
             {/* <button type="submit">submit</button> */}
           </div>
-        </form>
-        <div className="divider-section">
-          <div className="divider"></div>
-          <div className="arrow">
-            <IoIosArrowRoundDown className="arrow-icon" />
+          <div className="divider-section">
+            <div className="divider"></div>
+            <div className="arrow">
+              <button type="submit" id="calculateBtn">
+                <IoIosArrowRoundDown className="arrow-icon" />
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
         <div className="output-section">
           <p>
-            <span>{outputYear}</span>years
+            <span id="dayOut">{outputYear}</span>years
           </p>
           <p>
-            <span>{outputMonth}</span>months
+            <span id="monthOut">{outputMonth}</span>months
           </p>
           <p>
-            <span>{outputDay}</span>days
+            <span id="yearOut">{outputDay}</span>days
           </p>
         </div>
       </main>

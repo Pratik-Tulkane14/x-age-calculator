@@ -10,8 +10,8 @@ main {
   align-items: center;
   background-color: #f0f0f0;
   margin: 20px auto 0 auto;
-  width: 90vw;
-  max-width: 600px;
+  width: 300px;
+  max-width: 750px;
   padding: 1rem;
   border-radius: 10px 10px 130px 10px;
   box-shadow: 3px 6px 11px rgba(0, 0, 0, 0.1);
@@ -96,6 +96,11 @@ footer {
   text-decoration: none;
   color: #854cff;
   font-weight: bold;
+}
+#calculateBtn{
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
 }
 @media (min-width:500px) {
  .output-section{
